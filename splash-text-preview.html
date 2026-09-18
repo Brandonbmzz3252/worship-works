@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Splash preview — by Zonicz ©</title>
+<style>
+  body { margin: 0; background: #1b1b2f; font-family: Segoe UI, Arial, sans-serif; color: #e8e8f2; display: flex; align-items: center; justify-content: center; min-height: 100vh; gap: 48px; padding: 32px; flex-wrap: wrap; }
+  .card { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .label { font-size: 13px; opacity: .7; letter-spacing: 1px; text-transform: uppercase; }
+  .frame { background: #12112A; border-radius: 22px; padding: 28px; box-shadow: 0 18px 50px rgba(0,0,0,.45); display: flex; align-items: flex-start; justify-content: center; }
+  .frame img { width: 300px; height: auto; display: block; }
+  .zoom { background: #12112A; border: 1px solid #3a3a5c; border-radius: 12px; padding: 18px; }
+  .zoom img { width: 640px; height: auto; display: block; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="label">Splash screen (as it renders on device)</div>
+    <div class="frame">
+      <img src="./assets/images/splash-branding.png" alt="splash">
+    </div>
+  </div>
+  <div class="card">
+    <div class="label">Close-up — small print below the name</div>
+    <div class="zoom">
+      <img src="./assets/images/splash-branding.png" alt="zoom" style="object-position: bottom; width: 640px;">
+    </div>
+  </div>
+</body>
+</html>

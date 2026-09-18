@@ -1,0 +1,23 @@
+{
+  "short_name": "WorshipWorks",
+  "name": "Worship-Works",
+  "icons": [
+    {
+      "src": "/assets/images/icon.png",
+      "type": "image/png",
+      "sizes": "192x192 512x512"
+    },
+    {
+      "src": "/assets/images/icon-foreground.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#12112A",
+  "theme_color": "#7E22CE",
+  "display": "standalone",
+  "orientation": "portrait",
+  "description": "Worship band management, duty roster, setlists, songs library, and team communication."
+}

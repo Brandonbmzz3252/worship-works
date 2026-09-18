@@ -1,0 +1,68 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "songs",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "churchId", "order": "ASCENDING" },
+        { "fieldPath": "uploadedAt", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "setlists",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "churchId", "order": "ASCENDING" },
+        { "fieldPath": "date", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "events",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "churchId", "order": "ASCENDING" },
+        { "fieldPath": "start", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "messages",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "churchId", "order": "ASCENDING" },
+        { "fieldPath": "createdAt", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "roster",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "churchId", "order": "ASCENDING" },
+        { "fieldPath": "serviceDate", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "members",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "churchId", "order": "ASCENDING" },
+        { "fieldPath": "name", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "users",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "churchId", "order": "ASCENDING" },
+        { "fieldPath": "displayName", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "views",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "churchId", "order": "ASCENDING" },
+        { "fieldPath": "viewedAt", "order": "DESCENDING" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function profile() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+
+    function sameChurch(churchId) {
+      return signedIn() && profile().churchId == churchId;
+    }
+
+    // Composes a church-scoped document write rule. On create there is no
+    // existing resource, so the incoming document's churchId is the only
+    // source of truth.
+    function canWriteChurchDoc(allowAdmin) {
+      let matchesCreate = request.resource != null &&
+        profile().churchId == request.resource.data.churchId;
+      let matchesExisting = resource.data.churchId != null &&
+        sameChurch(resource.data.churchId);
+      return signedIn() && (matchesCreate || matchesExisting ||
+        (allowAdmin && isAdminOf(request.resource.data.churchId)));
+    }
+
+    function isAdmin() {
+      return signedIn() && profile().role == 'admin';
+    }
+
+    function isAdminOf(churchId) {
+      return isAdmin() && profile().churchId == churchId;
+    }
+
+    // Public read during sign-up (access-code check happens before an account exists).
+    match /churches/{churchId} {
+      allow read: if true;
+      allow create: if signedIn() && request.resource.data.createdBy == request.auth.uid;
+      allow update: if isAdminOf(churchId);
+      allow delete: if isAdminOf(churchId);
+    }
+
+    match /users/{uid} {
+      allow create: if signedIn() && request.resource.data.uid == request.auth.uid;
+      allow read: if sameChurch(resource.data.churchId);
+      allow update: if signedIn() &&
+        (request.auth.uid == uid || isAdminOf(resource.data.churchId));
+      allow delete: if false;
+    }
+
+    // Activity: a member writes only their own record (upsert keeps it latest);
+    // only this church's admins can read or clean up records.
+    match /views/{viewId} {
+      allow create, update: if signedIn() && request.resource.data.uid == request.auth.uid;
+      allow read: if isAdminOf(resource.data.churchId);
+      allow delete: if isAdminOf(resource.data.churchId);
+    }
+
+    match /songs/{doc} {
+      allow read, delete: if sameChurch(resource.data.churchId);
+      allow create, update: if canWriteChurchDoc(false);
+    }
+    match /setlists/{doc} {
+      allow read, delete: if sameChurch(resource.data.churchId);
+      allow create, update: if canWriteChurchDoc(false);
+    }
+    match /events/{doc} {
+      allow read, delete: if sameChurch(resource.data.churchId);
+      allow create, update: if canWriteChurchDoc(false);
+    }
+    match /roster/{doc} {
+      allow read, delete: if sameChurch(resource.data.churchId);
+      allow create, update: if canWriteChurchDoc(false);
+    }
+    match /members/{doc} {
+      allow read, delete: if sameChurch(resource.data.churchId);
+      allow create, update: if canWriteChurchDoc(false);
+    }
+    match /messages/{doc} {
+      allow read, delete: if sameChurch(resource.data.churchId);
+      allow create, update: if canWriteChurchDoc(false);
+    }
+  }
+}
